@@ -1,0 +1,34 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/debian11"
+  config.ssh.insert_key = false
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+
+  config.vm.provider :virtualbox do |v|
+    v.memory = 2048
+    v.linked_clone = true
+    v.cpus = 1  # Set the number of CPUs
+  end
+
+  # App Server 1
+  config.vm.define "Debian-1" do |app|
+    app.vm.hostname = "Debian-1.Fun"
+    #app.vm.network :public_network, ip: "192.168.1.130"
+    app.vm.network :private_network, ip: "192.168.50.12"
+  end
+
+  # App Server 2
+  config.vm.define "Debian-2" do |app|
+    app.vm.hostname = "Debian-2.Fun"
+    #app.vm.network :public_network, ip: "192.168.1.131"
+    app.vm.network :private_network, ip: "192.168.50.13"
+  end
+
+  # # DB Server
+  # config.vm.define "db" do |db|
+  #   db.vm.hostname = "orc.db.test"
+  #   db.vm.network :public_network, ip: "192.168.1.122"
+  # end
+
+
+end

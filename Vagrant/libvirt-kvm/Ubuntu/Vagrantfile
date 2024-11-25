@@ -1,0 +1,42 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu2204"
+  config.ssh.insert_key = false
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.provision "shell", inline: <<-SHELL
+    echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+CG3Byt/LFRXMM75UoFO249x4fbIIUFeMWdvc3iffu robot@Fedora-FunLife' >> /home/vagrant/.ssh/authorized_keys
+    chmod 600 /home/vagrant/.ssh/authorized_keys
+    chown vagrant:vagrant /home/vagrant/.ssh/authorized_keys
+    echo 'Acquire::http::Proxy "socks5h://192.168.20.178:10808";' >> /etc/apt/apt.conf.d/proxy
+  SHELL
+
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.memory = 2048
+    libvirt.cpus = 2  # Set the number of CPUs
+    # v.cpusize = 1024  # Set the CPU execution cap (in percentage)
+  end
+
+  # App Server 1
+  config.vm.define "Ubuntu-1" do |app1|
+    app1.vm.hostname = "Ubuntu-1.Fun"
+    app1.vm.network :private_network, type: "static", ip: "192.168.122.31", bridge: "virbr0"
+  end
+
+  # App Server 2
+  config.vm.define "Ubuntu-2" do |app2|
+    app2.vm.hostname = "Ubuntu-1.Fun"
+    app2.vm.network :private_network, type: "static", ip: "192.168.122.32", bridge: "virbr0"
+  end
+
+  # App Server 3
+  config.vm.define "Ubuntu-3" do |app3|
+    app3.vm.hostname = "Ubuntu-1.Fun"
+    app3.vm.network :private_network, type: "static", ip: "192.168.122.33", bridge: "virbr0"
+  end
+
+  # App Server 4
+  config.vm.define "Debian-4" do |app4|
+    app4.vm.hostname = "Debian-4.Fun"
+    app4.vm.network :private_network, type: "static", ip: "192.168.122.34", bridge: "virbr0"
+  end
+
+end
