@@ -1,16 +1,4 @@
 # main.tf
-terraform {
-  required_providers {
-    libvirt = {
-      source  = "dmacvicar/libvirt"
-      version = "0.8.1"
-    }
-  }
-}
-
-provider "libvirt" {
-  uri = "qemu:///system"
-}
 
 # Define base volumes for different OS images
 resource "libvirt_volume" "base_volumes" {
@@ -74,13 +62,3 @@ resource "libvirt_domain" "vm" {
 
 
 }
-
-# Output IP addresses
-output "vm_ips" {
-  value = {
-    for key, vm in libvirt_domain.vm :
-    key => vm.network_interface[0].addresses
-  }
-  description = "The IP addresses of the created VMs"
-}
-

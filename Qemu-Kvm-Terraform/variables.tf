@@ -25,19 +25,19 @@ variable "os_images" {
     disk_size  = number
   }))
   default = {
-    generic-ubuntu = {
+    generic-ubuntu-jammy = {
       image_path = "/path/to/ubuntu-cloud-image.img"
       memory     = 2048
       vcpu       = 2
       disk_size  = 10737418240 # 10GB
     }
-    generic-debian = {
+    generic-debian-bookworm = {
       image_path = "/path/to/debian-cloud-image.img"
       memory     = 2048
       vcpu       = 2
       disk_size  = 10737418240 # 10GB
     }
-    generic-fedora = {
+    generic-fedora-41 = {
       image_path = "/path/to/fedora-cloud-image.img"
       memory     = 2048
       vcpu       = 2
