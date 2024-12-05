@@ -37,7 +37,7 @@ variable "os_images" {
       vcpu       = 2
       disk_size  = 10737418240 # 10GB
     }
-    generic-fedora-41 = {
+    generic-fedora-40 = {
       image_path = "/path/to/fedora-cloud-image.img"
       memory     = 2048
       vcpu       = 2
