@@ -18,6 +18,12 @@ variable "hcloud_ssh_key_public_key_path" {
   default     = "~/.ssh/id_ed25519.pub"
 }
 
+variable "hcloud_server_instances" {
+  description = "Number of instance to be created"
+  type        = number
+  default     = 3
+}
+
 variable "hcloud_server_image" {
   description = "OS image"
   type        = string

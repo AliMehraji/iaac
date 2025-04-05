@@ -10,7 +10,7 @@
 
 output "node_public_ips" {
   description = "Public IPs of all node instances"
-  value = [for i in range(3) : {
+  value = [for i in range(var.hcloud_server_instances) : {
     name = "node${format("%02d", i + 1)}"
     ip   = hcloud_server.node[i].ipv4_address
   }]
