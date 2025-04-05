@@ -1,0 +1,36 @@
+#cloud-config
+
+# https://community.hetzner.com/tutorials/basic-cloud-config
+
+# Update and upgrade all packages
+package_reboot_if_required: true
+package_update: true
+package_upgrade: true
+
+# Create a new user
+users:
+  - name: ali
+    sudo: ALL=(ALL) NOPASSWD:ALL # pragma: allowlist secret
+    groups: sudo
+    shell: /bin/bash
+    # mkpasswd -m sha-512
+    passwd: "Hashed Passwd" # pragma: allowlist secret
+    home: /home/ali
+    lock_passwd: false
+    ssh_authorized_keys:
+      - "ssh-ed25519 AAAA..."
+
+# Change SSH port and restart sshd
+runcmd:
+  # Deactivate the root login
+  - sed -i -e '/^\(#\|\)PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  # Deactivate password authentication
+  - sed -i -e '/^\(#\|\)PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  # ChallengeResponseAuthentication
+  - sed -i -e '/^\(#\|\)ChallengeResponseAuthentication/s/^.*$/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/^\(#\|\)KbdInteractiveAuthentication/s/^.*$/KbdInteractiveAuthentication no/' /etc/ssh/sshd_config
+  # Change SSH port to 3322
+  - sed -i -e '/^\(#\|\)Port/s/^.*$/Port 3322/' /etc/ssh/sshd_config
+  # Restart SSH service to apply new port
+  - systemctl restart sshd.service
+  - reboot
