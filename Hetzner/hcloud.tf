@@ -16,5 +16,5 @@ resource "hcloud_server" "node" {
     ipv4_enabled = var.hcloud_server_public_net_ipv4_enabled
     ipv6_enabled = var.hcloud_server_public_net_ipv6_enabled
   }
-  user_data = file(var.hcloud_server_user_data_path)
+  user_data = file("${path.module}/${var.hcloud_server_cloud_init_file}")
 }

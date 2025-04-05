@@ -68,9 +68,9 @@ variable "hcloud_server_public_net_ipv6_enabled" {
   default     = true
 }
 
-variable "hcloud_server_user_data_path" {
+variable "hcloud_server_cloud_init_file" {
   description = "Cloud Init (user-data) Path"
   type        = string
-  default     = "./cloud-init.yml"
+  default     = "cloud-init.yml"
   sensitive   = true
 }
