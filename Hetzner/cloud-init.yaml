@@ -14,7 +14,7 @@ users:
     groups: sudo
     shell: /bin/bash
     # mkpasswd -m sha-512
-    passwd: "Hashed Passwd" # pragma: allowlist secret
+    passwd: "Hashed Password" # pragma: allowlist secret
     home: /home/ali
     lock_passwd: false
     ssh_authorized_keys:
