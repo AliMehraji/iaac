@@ -24,6 +24,12 @@ variable "hcloud_server_instances" {
   default     = 3
 }
 
+variable "hcloud_server_prefix" {
+  description = "Prefix for all servers name"
+  type        = string
+  default     = "node"
+}
+
 variable "hcloud_server_image" {
   description = "OS image"
   type        = string

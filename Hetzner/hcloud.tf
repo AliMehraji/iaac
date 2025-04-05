@@ -5,9 +5,8 @@ resource "hcloud_ssh_key" "default" {
 }
 
 resource "hcloud_server" "node" {
-  count = var.hcloud_server_instances
-  name  = "node${format("%02d", count.index + 1)}"
-  # name        = "node01"
+  count       = var.hcloud_server_instances
+  name        = "${var.hcloud_server_prefix}-${count.index + 1}"
   image       = var.hcloud_server_image
   server_type = var.hcloud_server_server_type
   datacenter  = var.hcloud_server_datacenter
